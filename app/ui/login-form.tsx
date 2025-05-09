@@ -15,10 +15,9 @@ import { authenticate } from '../lib/actions';
 export default function LoginForm() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
-  const [errorMessage, formAction, isPending] = useActionState(
-    authenticate,
-    undefined,
-  );
+  const actionState = useActionState(authenticate, undefined);
+  const errorMessage: string = actionState[0] || '';
+  const isPending: boolean = actionState[2];
 
   return (
     <form className="space-y-3">
